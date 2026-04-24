@@ -419,11 +419,11 @@ export default function App() {
 
   // --- FUNCIÓN MAILTO PARA CONTACTO CTAs ---
   const handleContactClick = (e) => {
-    e.preventDefault();
-    const email = 'franco@gosurgedigital.digital';
-    const subject = lang === 'es' ? 'Solicitud de Auditoría Gratuita - Go Surge Digital' : 'Free Audit Request - Go Surge Digital';
-    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
-  };
+  e.preventDefault();
+  // REEMPLAZA ESTE LINK POR TU LINK DE CALENDLY
+  const calendlyUrl = 'https://calendly.com/franco-gosurgedigital/30min'; 
+  window.open(calendlyUrl, '_blank');
+};
 
   return (
     <div className="website-container">
