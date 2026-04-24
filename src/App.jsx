@@ -1,183 +1,138 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-  TrendingUp,
-  Users,
-  Star,
-  BarChart,
-  ShoppingCart,
-  Target,
-  Filter,
+import { 
+  TrendingUp, 
+  Users, 
+  Star, 
+  BarChart, 
+  ShoppingCart, 
+  Target, 
+  Filter, 
   ArrowRight,
   Globe,
   Zap,
   MousePointerClick,
   CheckCircle2,
+  Mail
 } from 'lucide-react';
 
-// --- I18N DICTIONARY (INGLÉS Y ESPAÑOL) ---
-// Enfocado en E-commerce, Generación de Leads y Psicología de Conversión
+// --- DICCIONARIO DE IDIOMAS (INGLÉS Y ESPAÑOL) ---
 const translations = {
   en: {
-    nav_problem: 'The Challenge',
-    nav_system: 'Our System',
-    nav_results: 'Results',
+    nav_problem: "The Challenge",
+    nav_system: "Our System",
+    nav_results: "Results",
     nav_cta: "Let's Talk",
-    hero_kicker: 'E-COMMERCE & B2B LEAD GEN',
-    hero_title_1: 'Stop Losing Traffic.',
-    hero_title_2: 'Start Scaling Sales.',
-    hero_subtitle:
-      'We build predictable growth systems. Advanced E-commerce strategies and highly qualified B2B & B2C Lead Generation engines.',
-    hero_cta: 'Get a Free Audit',
-    hero_sub_cta: 'No commitment required',
-    marquee: [
-      'B2B/B2C Lead Generation',
-      'E-commerce Scalability',
-      'Omnichannel Ads',
-      'Predictable Systems',
-      'ROAS Increase',
-      'CRO Optimization',
-    ],
-    prob_kicker: 'The Challenge',
-    prob_title: 'Why your current strategy is failing',
-    prob_subtitle:
-      'Stop competing on price. Start competing on value and precision.',
-    prob_1_title: 'Traffic without Conversion',
-    prob_1_desc:
-      "You invest thousands in ads, get clicks, but your e-commerce sales or leads don't reflect that investment.",
-    prob_2_title: 'Sky-high CAC',
-    prob_2_desc:
-      'Your Customer Acquisition Costs (CAC) are constantly rising, destroying your profit margins month after month.',
-    prob_3_title: 'Stagnant Growth',
-    prob_3_desc:
-      'You lack a predictable system. Relying on word-of-mouth or sporadic campaigns makes scaling impossible.',
-    wf_kicker: 'The Go Surge System',
-    wf_title: 'The Infinite Sales Loop',
-    wf_subtitle: 'A frictionless journey from first click to loyal customer.',
-    wf_1: '1. We Capture',
-    wf_2: '2. Drive to Store',
-    wf_3: '3. You Sell',
-    wf_4: '4. Growth Loop',
-    bento_kicker: 'The Solution',
-    bento_title: 'The Go Surge Ecosystem',
-    bento_subtitle: 'Everything you need to scale your revenue predictably.',
-    bento_1_title: 'Data-Driven Integral Growth',
-    bento_1_desc:
-      "We don't sell 'likes'. We build mathematically designed sales funnels to maximize your Return on Ad Spend (ROAS).",
-    bento_2_title: 'E-commerce Scalability',
-    bento_2_desc:
-      'We optimize your CRO and buying journey to turn casual browsers into loyal buyers effortlessly.',
-    bento_3_title: 'B2B/B2C Lead Generation',
-    bento_3_desc:
-      'High-intent prospect capture systems. We filter the noise and deliver hot leads ready for your CRM.',
-    bento_4_title: 'Omnichannel Advertising',
-    bento_4_desc:
-      'We master Meta, Google and TikTok Ads to impact your ideal client exactly where they spend their time.',
-    test_kicker: 'Social Proof',
-    test_title: 'Results That Speak For Themselves',
-    test_1_text:
-      'We scaled our E-commerce sales by 300% in less than 6 months. Finally a predictable system we can rely on.',
-    test_1_author: 'Marcos T.',
-    test_1_role: 'CEO, B2C Retail',
-    test_2_text:
-      'The quality of our B2B leads improved radically. CPA dropped 40% and our team closes more deals with zero friction.',
-    test_2_author: 'Laura G.',
-    test_2_role: 'Tech Sales Director',
-    test_3_text:
-      'The omnichannel system revolutionized our client acquisition. We went from relying on referrals to having a constant flow.',
-    test_3_author: 'David R.',
-    test_3_role: 'SaaS Founder',
-    footer_title: 'Ready to uncover your hidden revenue?',
-    footer_desc:
-      "We work with a limited number of brands to guarantee exceptional results. Let's analyze your current funnel, 100% free.",
-    footer_cta: 'Request Your Free Audit',
-    footer_rights: '© 2026 Go Surge Digital. All rights reserved.',
+    hero_kicker: "E-COMMERCE & B2B LEAD GEN",
+    hero_title_1: "Stop Losing Traffic.",
+    hero_title_2: "Start Scaling Sales.",
+    hero_subtitle: "We build predictable growth systems. Advanced E-commerce strategies and highly qualified B2B & B2C Lead Generation engines.",
+    hero_cta: "Get a Free Audit",
+    hero_sub_cta: "No commitment required",
+    marquee: ["B2B/B2C Lead Generation", "E-commerce Scalability", "Omnichannel Ads", "Predictable Systems", "ROAS Increase", "CRO Optimization"],
+    prob_kicker: "The Challenge",
+    prob_title: "Why your current strategy is failing",
+    prob_subtitle: "Stop competing on price. Start competing on value and precision.",
+    prob_1_title: "Traffic without Conversion",
+    prob_1_desc: "You invest thousands in ads, get clicks, but your e-commerce sales or leads don't reflect that investment.",
+    prob_2_title: "Sky-high CAC",
+    prob_2_desc: "Your Customer Acquisition Costs (CAC) are constantly rising, destroying your profit margins month after month.",
+    prob_3_title: "Stagnant Growth",
+    prob_3_desc: "You lack a predictable system. Relying on word-of-mouth or sporadic campaigns makes scaling impossible.",
+    wf_kicker: "The Go Surge System",
+    wf_title: "The Infinite Sales Loop",
+    wf_subtitle: "A frictionless journey from first click to loyal customer.",
+    wf_1: "1. We Capture",
+    wf_2: "2. Drive to Store",
+    wf_3: "3. You Sell",
+    wf_4: "4. Growth Loop",
+    bento_kicker: "The Solution",
+    bento_title: "The Go Surge Ecosystem",
+    bento_subtitle: "Everything you need to scale your revenue predictably.",
+    bento_1_title: "Data-Driven Integral Growth",
+    bento_1_desc: "We don't sell 'likes'. We build mathematically designed sales funnels to maximize your Return on Ad Spend (ROAS).",
+    bento_2_title: "E-commerce Scalability",
+    bento_2_desc: "We optimize your CRO and buying journey to turn casual browsers into loyal buyers effortlessly.",
+    bento_3_title: "B2B/B2C Lead Generation",
+    bento_3_desc: "High-intent prospect capture systems. We filter the noise and deliver hot leads ready for your CRM.",
+    bento_4_title: "Omnichannel Advertising",
+    bento_4_desc: "We master Meta, Google and TikTok Ads to impact your ideal client exactly where they spend their time.",
+    test_kicker: "Social Proof",
+    test_title: "Results That Speak For Themselves",
+    test_1_text: "We scaled our E-commerce sales by 300% in less than 6 months. Finally a predictable system we can rely on.",
+    test_1_author: "Marcos T.",
+    test_1_role: "CEO, B2C Retail",
+    test_2_text: "The quality of our B2B leads improved radically. CPA dropped 40% and our team closes more deals with zero friction.",
+    test_2_author: "Laura G.",
+    test_2_role: "Tech Sales Director",
+    test_3_text: "The omnichannel system revolutionized our client acquisition. We went from relying on referrals to having a constant flow.",
+    test_3_author: "David R.",
+    test_3_role: "SaaS Founder",
+    footer_title: "Ready to uncover your hidden revenue?",
+    footer_desc: "We work with a limited number of brands to guarantee exceptional results. Let's analyze your current funnel, 100% free.",
+    footer_cta: "Request Your Free Audit",
+    footer_email_text: "Or email us directly at: ",
+    footer_rights: "© 2026 Go Surge Digital. All rights reserved."
   },
   es: {
-    nav_problem: 'El Reto',
-    nav_system: 'Nuestro Sistema',
-    nav_results: 'Resultados',
-    nav_cta: 'Hablemos',
-    hero_kicker: 'E-COMMERCE & B2B LEAD GEN',
-    hero_title_1: 'Deja de Perder Tráfico.',
-    hero_title_2: 'Empieza a Escalar Ventas.',
-    hero_subtitle:
-      'Construimos sistemas predecibles de crecimiento. Estrategias avanzadas para E-commerce y motores de Generación de Leads B2B y B2C.',
-    hero_cta: 'Obtener Auditoría Gratuita',
-    hero_sub_cta: 'Sin ningún compromiso',
-    marquee: [
-      'Generación de Leads B2B/B2C',
-      'Escalabilidad E-commerce',
-      'Publicidad Omnicanal',
-      'Sistemas Predecibles',
-      'Aumento de ROAS',
-      'Optimización de CRO',
-    ],
-    prob_kicker: 'El Reto',
-    prob_title: 'Por qué tu estrategia actual falla',
-    prob_subtitle:
-      'Deja de competir por precio. Empieza a competir por valor y precisión.',
-    prob_1_title: 'Tráfico sin Conversión',
-    prob_1_desc:
-      'Inviertes miles en pauta, consigues clics, pero las ventas de tu e-commerce o los leads no reflejan esa inversión.',
-    prob_2_title: 'CAC por las Nubes',
-    prob_2_desc:
-      'Tus costos de adquisición de clientes (CAC) son cada vez más altos, destrozando tus márgenes de beneficio.',
-    prob_3_title: 'Crecimiento Estancado',
-    prob_3_desc:
-      'No tienes un sistema predecible. Depender del boca a boca o de campañas esporádicas hace imposible escalar.',
-    wf_kicker: 'El Sistema Go Surge',
-    wf_title: 'El Bucle Infinito de Ventas',
-    wf_subtitle:
-      'Un viaje sin fricción desde el primer clic hasta el cliente recurrente.',
-    wf_1: '1. Capturamos',
-    wf_2: '2. A tu Tienda',
-    wf_3: '3. Tú Vendes',
-    wf_4: '4. Bucle de Escala',
-    bento_kicker: 'La Solución',
-    bento_title: 'El Ecosistema Go Surge',
-    bento_subtitle:
-      'Todo lo que necesitas para escalar tu facturación de forma predecible.',
-    bento_1_title: 'Crecimiento Integral Orientado a Datos',
-    bento_1_desc:
-      "No vendemos 'likes'. Construimos embudos de venta diseñados matemáticamente para maximizar tu retorno de inversión (ROAS).",
-    bento_2_title: 'Escalabilidad E-commerce',
-    bento_2_desc:
-      'Optimizamos tu CRO y el viaje de compra para convertir visitantes curiosos en compradores recurrentes de forma fluida.',
-    bento_3_title: 'Generación de Leads B2B/B2C',
-    bento_3_desc:
-      'Sistemas de captación de alta intención. Filtramos el ruido y entregamos prospectos listos para tu CRM.',
-    bento_4_title: 'Publicidad Omnicanal',
-    bento_4_desc:
-      'Dominamos Meta Ads, Google Ads y TikTok Ads para impactar a tu cliente ideal exactamente donde pasa su tiempo.',
-    test_kicker: 'Prueba Social',
-    test_title: 'Resultados que Hablan por Sí Solos',
-    test_1_text:
-      'Escalamos nuestras ventas de E-commerce un 300% en menos de 6 meses. Finalmente un sistema en el que podemos confiar.',
-    test_1_author: 'Marcos T.',
-    test_1_role: 'CEO, Retail B2C',
-    test_2_text:
-      'La calidad de los leads B2B mejoró radicalmente. El CPA bajó un 40% y nuestro equipo cierra más tratos sin fricción.',
-    test_2_author: 'Laura G.',
-    test_2_role: 'Directora Comercial Tech',
-    test_3_text:
-      'El sistema omnicanal revolucionó nuestra captación de clientes. Pasamos de depender de referidos a tener un flujo constante.',
-    test_3_author: 'David R.',
-    test_3_role: 'Fundador SaaS',
-    footer_title: '¿Listo para descubrir tus ingresos ocultos?',
-    footer_desc:
-      'Trabajamos con un número limitado de marcas para garantizar calidad. Analicemos tu embudo actual, 100% gratis.',
-    footer_cta: 'Solicitar mi Auditoría Gratuita',
-    footer_rights: '© 2026 Go Surge Digital. Todos los derechos reservados.',
-  },
+    nav_problem: "El Reto",
+    nav_system: "Nuestro Sistema",
+    nav_results: "Resultados",
+    nav_cta: "Hablemos",
+    hero_kicker: "E-COMMERCE & B2B LEAD GEN",
+    hero_title_1: "Deja de Perder Tráfico.",
+    hero_title_2: "Empieza a Escalar Ventas.",
+    hero_subtitle: "Construimos sistemas predecibles de crecimiento. Estrategias avanzadas para E-commerce y motores de Generación de Leads B2B y B2C.",
+    hero_cta: "Obtener Auditoría Gratuita",
+    hero_sub_cta: "Sin ningún compromiso",
+    marquee: ["Generación de Leads B2B/B2C", "Escalabilidad E-commerce", "Publicidad Omnicanal", "Sistemas Predecibles", "Aumento de ROAS", "Optimización de CRO"],
+    prob_kicker: "El Reto",
+    prob_title: "Por qué tu estrategia actual falla",
+    prob_subtitle: "Deja de competir por precio. Empieza a competir por valor y precisión.",
+    prob_1_title: "Tráfico sin Conversión",
+    prob_1_desc: "Inviertes miles en pauta, consigues clics, pero las ventas de tu e-commerce o los leads no reflejan esa inversión.",
+    prob_2_title: "CAC por las Nubes",
+    prob_2_desc: "Tus costos de adquisición de clientes (CAC) son cada vez más altos, destrozando tus márgenes de beneficio.",
+    prob_3_title: "Crecimiento Estancado",
+    prob_3_desc: "No tienes un sistema predecible. Depender del boca a boca o de campañas esporádicas hace imposible escalar.",
+    wf_kicker: "El Sistema Go Surge",
+    wf_title: "El Bucle Infinito de Ventas",
+    wf_subtitle: "Un viaje sin fricción desde el primer clic hasta el cliente recurrente.",
+    wf_1: "1. Capturamos",
+    wf_2: "2. A tu Tienda",
+    wf_3: "3. Tú Vendes",
+    wf_4: "4. Bucle de Escala",
+    bento_kicker: "La Solución",
+    bento_title: "El Ecosistema Go Surge",
+    bento_subtitle: "Todo lo que necesitas para escalar tu facturación de forma predecible.",
+    bento_1_title: "Crecimiento Integral Orientado a Datos",
+    bento_1_desc: "No vendemos 'likes'. Construimos embudos de venta diseñados matemáticamente para maximizar tu retorno de inversión (ROAS).",
+    bento_2_title: "Escalabilidad E-commerce",
+    bento_2_desc: "Optimizamos tu CRO y el viaje de compra para convertir visitantes curiosos en compradores recurrentes de forma fluida.",
+    bento_3_title: "Generación de Leads B2B/B2C",
+    bento_3_desc: "Sistemas de captación de alta intención. Filtramos el ruido y entregamos prospectos listos para tu CRM.",
+    bento_4_title: "Publicidad Omnicanal",
+    bento_4_desc: "Dominamos Meta Ads, Google Ads y TikTok Ads para impactar a tu cliente ideal exactamente donde pasa su tiempo.",
+    test_kicker: "Prueba Social",
+    test_title: "Resultados que Hablan por Sí Solos",
+    test_1_text: "Escalamos nuestras ventas de E-commerce un 300% en menos de 6 meses. Finalmente un sistema en el que podemos confiar.",
+    test_1_author: "Marcos T.",
+    test_1_role: "CEO, Retail B2C",
+    test_2_text: "La calidad de los leads B2B mejoró radicalmente. El CPA bajó un 40% y nuestro equipo cierra más tratos sin fricción.",
+    test_2_author: "Laura G.",
+    test_2_role: "Directora Comercial Tech",
+    test_3_text: "El sistema omnicanal revolucionó nuestra captación de clientes. Pasamos de depender de referidos a tener un flujo constante.",
+    test_3_author: "David R.",
+    test_3_role: "Fundador SaaS",
+    footer_title: "¿Listo para descubrir tus ingresos ocultos?",
+    footer_desc: "Trabajamos con un número limitado de marcas para garantizar calidad. Analicemos tu embudo actual, 100% gratis.",
+    footer_cta: "Solicitar mi Auditoría Gratuita",
+    footer_email_text: "O escríbenos directamente a: ",
+    footer_rights: "© 2026 Go Surge Digital. Todos los derechos reservados."
+  }
 };
 
-// --- COMPONENTE SCROLL REVEAL (Animaciones Fluidas SEO-Friendly) ---
-const ScrollReveal = ({
-  children,
-  delay = 0,
-  direction = 'up',
-  className = '',
-}) => {
+// --- COMPONENTE SCROLL REVEAL ---
+const ScrollReveal = ({ children, delay = 0, direction = 'up', className = "" }) => {
   const [isVisible, setIsVisible] = useState(false);
   const ref = useRef(null);
 
@@ -189,7 +144,7 @@ const ScrollReveal = ({
           observer.unobserve(entry.target);
         }
       },
-      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();
@@ -198,16 +153,11 @@ const ScrollReveal = ({
   const getTransform = () => {
     if (isVisible) return 'translate(0, 0)';
     switch (direction) {
-      case 'up':
-        return 'translateY(40px)';
-      case 'down':
-        return 'translateY(-40px)';
-      case 'left':
-        return 'translateX(40px)';
-      case 'right':
-        return 'translateX(-40px)';
-      default:
-        return 'translateY(40px)';
+      case 'up': return 'translateY(40px)';
+      case 'down': return 'translateY(-40px)';
+      case 'left': return 'translateX(40px)';
+      case 'right': return 'translateX(-40px)';
+      default: return 'translateY(40px)';
     }
   };
 
@@ -238,25 +188,13 @@ const PremiumBackground = () => (
   </div>
 );
 
-// --- LOGO COMPONENTE (Mantiene gradientes originales Naranja/Azul) ---
+// --- LOGO COMPONENTE ---
 const Logo = ({ size = 'large' }) => {
-  const dimensions =
-    size === 'large' ? { width: 400, height: 100 } : { width: 200, height: 50 };
-
+  const dimensions = size === 'large' ? { width: 400, height: 100 } : { width: 200, height: 50 };
+  
   return (
-    <a
-      href="#"
-      className="logo-container"
-      aria-label="Go Surge Digital Home"
-      style={{ display: 'inline-block', textDecoration: 'none' }}
-    >
-      <svg
-        width={dimensions.width}
-        height={dimensions.height}
-        viewBox="0 0 800 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
+    <a href="#" className="logo-container" aria-label="Go Surge Digital Home" style={{ display: 'inline-block', textDecoration: 'none' }}>
+      <svg width={dimensions.width} height={dimensions.height} viewBox="0 0 800 200" fill="none" xmlns="http://www.w3.org/2000/svg">
         <defs>
           <linearGradient id="waveGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor="#1B3A6B" />
@@ -269,40 +207,16 @@ const Logo = ({ size = 'large' }) => {
             <stop offset="100%" stopColor="#F97316" />
           </linearGradient>
           <filter id="glow">
-            <feGaussianBlur stdDeviation="4" result="coloredBlur" />
+            <feGaussianBlur stdDeviation="4" result="coloredBlur"/>
             <feMerge>
-              <feMergeNode in="coloredBlur" />
-              <feMergeNode in="SourceGraphic" />
+              <feMergeNode in="coloredBlur"/>
+              <feMergeNode in="SourceGraphic"/>
             </feMerge>
           </filter>
         </defs>
-        <path
-          d="M 30 100 Q 45 60, 60 100 T 90 100"
-          stroke="url(#waveGrad1)"
-          strokeWidth="10"
-          fill="none"
-          strokeLinecap="round"
-          filter="url(#glow)"
-          className="wave-animate-1"
-        />
-        <path
-          d="M 110 100 Q 125 140, 140 100 T 170 100"
-          stroke="url(#waveGrad2)"
-          strokeWidth="10"
-          fill="none"
-          strokeLinecap="round"
-          filter="url(#glow)"
-          className="wave-animate-2"
-        />
-        <text
-          x="200"
-          y="125"
-          fill="#FFFFFF"
-          fontSize="76"
-          fontWeight="800"
-          fontFamily="'Space Grotesk', sans-serif"
-          letterSpacing="-0.02em"
-        >
+        <path d="M 30 100 Q 45 60, 60 100 T 90 100" stroke="url(#waveGrad1)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#glow)" className="wave-animate-1" />
+        <path d="M 110 100 Q 125 140, 140 100 T 170 100" stroke="url(#waveGrad2)" strokeWidth="10" fill="none" strokeLinecap="round" filter="url(#glow)" className="wave-animate-2" />
+        <text x="200" y="125" fill="#FFFFFF" fontSize="76" fontWeight="800" fontFamily="'Space Grotesk', sans-serif" letterSpacing="-0.02em">
           Go Surge Digital
         </text>
       </svg>
@@ -317,12 +231,11 @@ const WorkflowSection = ({ t }) => {
   const workflowRef = useRef(null);
 
   const O = '#ffffff';
-  const ORANGE = '#F97316';
-  const NAVY = '#1B3A6B';
+  const ORANGE = '#F97316'; 
+  const NAVY = '#1B3A6B'; 
   const DARK = '#07070f';
   const ORANGE_BG = 'rgba(249, 115, 22, 0.15)';
 
-  // Detector de Scroll para iniciar animación
   useEffect(() => {
     const checkScroll = () => {
       if (workflowRef.current) {
@@ -338,23 +251,22 @@ const WorkflowSection = ({ t }) => {
     return () => window.removeEventListener('scroll', checkScroll);
   }, []);
 
-  // Motor de Animación del Bucle (Captura -> Tienda -> Vende -> Loop)
   useEffect(() => {
     if (!startAnimation) return;
-
+    
     const animateLoop = () => {
       setStep(0);
-      setTimeout(() => setStep(1), 400); // Nodo 1: Capture
-      setTimeout(() => setStep(2), 1000); // Linea 1-2
-      setTimeout(() => setStep(3), 1600); // Nodo 2: Store
-      setTimeout(() => setStep(4), 2200); // Linea 2-3
-      setTimeout(() => setStep(5), 2800); // Nodo 3: Sell
-      setTimeout(() => setStep(6), 3400); // Linea 3-4
-      setTimeout(() => setStep(7), 4000); // Nodo 4: Loop
-      setTimeout(() => setStep(8), 4600); // Dibuja curva de regreso
-      setTimeout(() => setStep(9), 5600); // Flecha final, bucle cerrado
-
-      setTimeout(animateLoop, 8500); // Repetir
+      setTimeout(() => setStep(1), 400);   
+      setTimeout(() => setStep(2), 1000);  
+      setTimeout(() => setStep(3), 1600);  
+      setTimeout(() => setStep(4), 2200);  
+      setTimeout(() => setStep(5), 2800);  
+      setTimeout(() => setStep(6), 3400);  
+      setTimeout(() => setStep(7), 4000);  
+      setTimeout(() => setStep(8), 4600);  
+      setTimeout(() => setStep(9), 5600);  
+      
+      setTimeout(animateLoop, 8500); 
     };
 
     animateLoop();
@@ -366,24 +278,24 @@ const WorkflowSection = ({ t }) => {
     filter: isActive ? 'url(#glo)' : 'none',
     transformOrigin: 'center',
     transform: isActive && step === 9 ? 'scale(1.05)' : 'scale(1)',
-    transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+    transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)'
   });
 
   const iconStyle = (isActive) => ({
     stroke: isActive ? O : NAVY,
-    transition: 'stroke 0.4s ease',
+    transition: 'stroke 0.4s ease'
   });
 
   const lineStyle = (isActive) => ({
     strokeDasharray: 100,
     strokeDashoffset: isActive ? 0 : 100,
-    transition: 'stroke-dashoffset 0.6s ease-in-out',
+    transition: 'stroke-dashoffset 0.6s ease-in-out'
   });
 
   const arrowStyle = (isActive) => ({
     opacity: isActive ? 1 : 0,
     transform: isActive ? 'translateX(0)' : 'translateX(-10px)',
-    transition: 'all 0.4s ease',
+    transition: 'all 0.4s ease'
   });
 
   return (
@@ -395,270 +307,80 @@ const WorkflowSection = ({ t }) => {
           <p className="section-subtitle">{t.wf_subtitle}</p>
         </header>
       </ScrollReveal>
-
+      
       <ScrollReveal delay={0.2}>
-        <div
-          className="svg-wrap"
-          style={{ position: 'relative', marginTop: '2rem' }}
-        >
-          <svg
-            width="100%"
-            viewBox="0 0 656 240"
-            style={{ display: 'block', overflow: 'visible' }}
-            aria-hidden="true"
-          >
+        <div className="svg-wrap" style={{ position: 'relative', marginTop: '2rem' }}>
+          <svg width="100%" viewBox="0 0 656 240" style={{ display: 'block', overflow: 'visible' }} aria-hidden="true">
             <defs>
               <filter id="glo">
-                <feGaussianBlur stdDeviation="4" result="b" />
-                <feMerge>
-                  <feMergeNode in="b" />
-                  <feMergeNode in="SourceGraphic" />
-                </feMerge>
+                <feGaussianBlur stdDeviation="4" result="b"/>
+                <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
               </filter>
             </defs>
+            <line x1="134" y1="80" x2="216" y2="80" stroke={NAVY} strokeWidth="2" strokeDasharray="4,4" opacity=".5"/>
+            <line x1="284" y1="80" x2="366" y2="80" stroke={NAVY} strokeWidth="2" strokeDasharray="4,4" opacity=".5"/>
+            <line x1="434" y1="80" x2="516" y2="80" stroke={NAVY} strokeWidth="2" strokeDasharray="4,4" opacity=".5"/>
 
-            {/* Lineas Base */}
-            <line
-              x1="134"
-              y1="80"
-              x2="216"
-              y2="80"
-              stroke={NAVY}
-              strokeWidth="2"
-              strokeDasharray="4,4"
-              opacity=".5"
+            <line x1="134" y1="80" x2="216" y2="80" strokeWidth="3" stroke={ORANGE} style={lineStyle(step >= 2)} />
+            <line x1="284" y1="80" x2="366" y2="80" strokeWidth="3" stroke={ORANGE} style={lineStyle(step >= 4)} />
+            <line x1="434" y1="80" x2="516" y2="80" strokeWidth="3" stroke={ORANGE} style={lineStyle(step >= 6)} />
+
+            <path d="M208,72 L216,80 L208,88" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" stroke={ORANGE} style={arrowStyle(step >= 3)} />
+            <path d="M358,72 L366,80 L358,88" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" stroke={ORANGE} style={arrowStyle(step >= 5)} />
+            <path d="M508,72 L516,80 L508,88" fill="none" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" stroke={ORANGE} style={arrowStyle(step >= 7)} />
+
+            <path 
+              d="M 550 114 C 550 250, 100 250, 100 114" 
+              fill="none" 
+              stroke={ORANGE} 
+              strokeWidth="2.5" 
+              strokeDasharray="1200" 
+              strokeDashoffset={step >= 8 ? 0 : 1200} 
+              style={{transition: 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)'}} 
             />
-            <line
-              x1="284"
-              y1="80"
-              x2="366"
-              y2="80"
-              stroke={NAVY}
-              strokeWidth="2"
-              strokeDasharray="4,4"
-              opacity=".5"
-            />
-            <line
-              x1="434"
-              y1="80"
-              x2="516"
-              y2="80"
-              stroke={NAVY}
-              strokeWidth="2"
-              strokeDasharray="4,4"
-              opacity=".5"
+            <path 
+              d="M 92 125 L 100 114 L 108 125" 
+              fill="none"
+              strokeWidth="3"
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+              stroke={ORANGE} 
+              style={{opacity: step >= 9 ? 1 : 0, transition: 'opacity 0.4s ease'}} 
             />
 
-            {/* Lineas Activas */}
-            <line
-              x1="134"
-              y1="80"
-              x2="216"
-              y2="80"
-              strokeWidth="3"
-              stroke={ORANGE}
-              style={lineStyle(step >= 2)}
-            />
-            <line
-              x1="284"
-              y1="80"
-              x2="366"
-              y2="80"
-              strokeWidth="3"
-              stroke={ORANGE}
-              style={lineStyle(step >= 4)}
-            />
-            <line
-              x1="434"
-              y1="80"
-              x2="516"
-              y2="80"
-              strokeWidth="3"
-              stroke={ORANGE}
-              style={lineStyle(step >= 6)}
-            />
-
-            {/* Flechas Direccionales */}
-            <path
-              d="M208,72 L216,80 L208,88"
-              fill="none"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              stroke={ORANGE}
-              style={arrowStyle(step >= 3)}
-            />
-            <path
-              d="M358,72 L366,80 L358,88"
-              fill="none"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              stroke={ORANGE}
-              style={arrowStyle(step >= 5)}
-            />
-            <path
-              d="M508,72 L516,80 L508,88"
-              fill="none"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              stroke={ORANGE}
-              style={arrowStyle(step >= 7)}
-            />
-
-            {/* CURVA DE BUCLE INFINITO */}
-            <path
-              d="M 550 114 C 550 250, 100 250, 100 114"
-              fill="none"
-              stroke={ORANGE}
-              strokeWidth="2.5"
-              strokeDasharray="1200"
-              strokeDashoffset={step >= 8 ? 0 : 1200}
-              style={{
-                transition: 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)',
-              }}
-            />
-            {/* Flecha de retorno del Bucle */}
-            <path
-              d="M 92 125 L 100 114 L 108 125"
-              fill="none"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              stroke={ORANGE}
-              style={{
-                opacity: step >= 9 ? 1 : 0,
-                transition: 'opacity 0.4s ease',
-              }}
-            />
-
-            {/* Nodo 1: Capture */}
-            <circle
-              cx="100"
-              cy="80"
-              r="34"
-              strokeWidth="2"
-              style={nodeStyle(step >= 1)}
-            />
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={iconStyle(step >= 1)}
-            >
-              <path
-                d="M85,85 L85,75 A15,15 0 0,1 115,75 L115,85"
-                strokeWidth="2"
-              />
-              <rect x="82" y="85" width="6" height="8" fill="currentColor" />
-              <rect x="112" y="85" width="6" height="8" fill="currentColor" />
+            <circle cx="100" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 1)} />
+            <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 1)}>
+               <path d="M85,85 L85,75 A15,15 0 0,1 115,75 L115,85" strokeWidth="2"/>
+               <rect x="82" y="85" width="6" height="8" fill="currentColor"/>
+               <rect x="112" y="85" width="6" height="8" fill="currentColor"/>
             </g>
 
-            {/* Nodo 2: Drive to Store */}
-            <circle
-              cx="250"
-              cy="80"
-              r="34"
-              strokeWidth="2"
-              style={nodeStyle(step >= 3)}
-            />
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={iconStyle(step >= 3)}
-            >
-              <rect
-                x="238"
-                y="70"
-                width="24"
-                height="20"
-                rx="2"
-                strokeWidth="2"
-              />
-              <path
-                d="M245,90 L255,90 M250,90 L250,94 M242,94 L258,94"
-                strokeWidth="2"
-              />
+            <circle cx="250" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 3)} />
+            <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 3)}>
+              <rect x="238" y="70" width="24" height="20" rx="2" strokeWidth="2" />
+              <path d="M245,90 L255,90 M250,90 L250,94 M242,94 L258,94" strokeWidth="2" />
             </g>
 
-            {/* Nodo 3: Sell (Cart) */}
-            <circle
-              cx="400"
-              cy="80"
-              r="34"
-              strokeWidth="2"
-              style={nodeStyle(step >= 5)}
-            />
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={iconStyle(step >= 5)}
-            >
-              <circle cx="394" cy="92" r="2" strokeWidth="2" />
-              <circle cx="406" cy="92" r="2" strokeWidth="2" />
-              <path
-                d="M386,66 L390,66 L393,85 L408,85 L411,72 L391,72"
-                strokeWidth="2"
-              />
+            <circle cx="400" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 5)} />
+            <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 5)}>
+              <circle cx="394" cy="92" r="2" strokeWidth="2"/>
+              <circle cx="406" cy="92" r="2" strokeWidth="2"/>
+              <path d="M386,66 L390,66 L393,85 L408,85 L411,72 L391,72" strokeWidth="2"/>
             </g>
 
-            {/* Nodo 4: Loop */}
-            <circle
-              cx="550"
-              cy="80"
-              r="34"
-              strokeWidth="2"
-              style={nodeStyle(step >= 7)}
-            />
-            <g
-              fill="none"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              style={iconStyle(step >= 7)}
-            >
-              <path d="M538,75 A12,12 0 1,1 542,88" strokeWidth="2" />
-              <path d="M538,75 L545,75 L538,68" strokeWidth="2" />
+            <circle cx="550" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 7)} />
+            <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 7)}>
+               <path d="M538,75 A12,12 0 1,1 542,88" strokeWidth="2"/>
+               <path d="M538,75 L545,75 L538,68" strokeWidth="2"/>
             </g>
           </svg>
         </div>
 
-        <div
-          className="labels"
-          aria-hidden="true"
-          style={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            padding: '0 30px',
-            marginTop: '10px',
-          }}
-        >
-          <div
-            className={`lb ${step >= 1 ? 'active-orange' : ''}`}
-            style={{ width: '100px' }}
-          >
-            {t.wf_1}
-          </div>
-          <div
-            className={`lb ${step >= 3 ? 'active-orange' : ''}`}
-            style={{ width: '100px' }}
-          >
-            {t.wf_2}
-          </div>
-          <div
-            className={`lb ${step >= 5 ? 'active-orange' : ''}`}
-            style={{ width: '100px' }}
-          >
-            {t.wf_3}
-          </div>
-          <div
-            className={`lb ${step >= 7 ? 'active-orange' : ''}`}
-            style={{ width: '100px' }}
-          >
-            {t.wf_4}
-          </div>
+        <div className="labels" aria-hidden="true" style={{ display: 'flex', justifyContent: 'space-between', padding: '0 30px', marginTop: '10px' }}>
+          <div className={`lb ${step >= 1 ? 'active-orange' : ''}`} style={{ width: '100px' }}>{t.wf_1}</div>
+          <div className={`lb ${step >= 3 ? 'active-orange' : ''}`} style={{ width: '100px' }}>{t.wf_2}</div>
+          <div className={`lb ${step >= 5 ? 'active-orange' : ''}`} style={{ width: '100px' }}>{t.wf_3}</div>
+          <div className={`lb ${step >= 7 ? 'active-orange' : ''}`} style={{ width: '100px' }}>{t.wf_4}</div>
         </div>
       </ScrollReveal>
     </section>
@@ -690,15 +412,17 @@ export default function App() {
 
   // Parallax Mouse Glow
   useEffect(() => {
-    const handleMouseMove = (e) =>
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    const handleMouseMove = (e) => setMousePosition({ x: e.clientX, y: e.clientY });
     window.addEventListener('mousemove', handleMouseMove);
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  const handleLowFrictionClick = (e) => {
+  // --- FUNCIÓN MAILTO PARA CONTACTO CTAs ---
+  const handleContactClick = (e) => {
     e.preventDefault();
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    const email = 'franco@gosurgedigital.digital';
+    const subject = lang === 'es' ? 'Solicitud de Auditoría Gratuita - Go Surge Digital' : 'Free Audit Request - Go Surge Digital';
+    window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}`;
   };
 
   return (
@@ -758,7 +482,7 @@ export default function App() {
         .section-title { font-size: clamp(2rem, 4vw, 3.5rem); font-weight: 800; color: #fff; margin-bottom: 1rem; letter-spacing: -0.02em; }
         .section-subtitle { font-size: 1.2rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
         
-        /* Low Friction CTA */
+        /* Botones de Acción (CTAs) */
         .cta-primary { display: inline-flex; align-items: center; justify-content: center; gap: 0.8rem; padding: 1.2rem 2.8rem; font-size: 1.15rem; font-weight: 700; color: #000; background: linear-gradient(135deg, #F97316 0%, #ea6c10 100%); border: none; border-radius: 12px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-decoration: none; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2); }
         .cta-primary:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4); }
         .cta-subtext { display: block; margin-top: 10px; font-size: 0.85rem; color: var(--text-muted); font-weight: 500; display: flex; align-items: center; justify-content: center; gap: 5px; }
@@ -783,7 +507,7 @@ export default function App() {
         .wave-animate-1 { animation: wave1 3s ease-in-out infinite; }
         .wave-animate-2 { animation: wave2 3s ease-in-out infinite 0.3s; }
 
-        /* Pain Points */
+        /* Problemas */
         .problem-section { padding: 10rem 5%; }
         .problem-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
         .problem-card { background: rgba(10, 10, 15, 0.5); border: 1px solid rgba(27, 58, 107, 0.3); border-radius: 20px; padding: 3rem 2.5rem; transition: all 0.4s ease; backdrop-filter: blur(10px); }
@@ -792,12 +516,12 @@ export default function App() {
         .problem-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #ffffff; font-weight: 700; }
         .problem-card p { color: var(--text-muted); line-height: 1.7; }
 
-        /* Workflow */
+        /* Bucle */
         .workflow-section { padding: 8rem 5%; position: relative; max-width: 1000px; margin: 0 auto; }
         .lb { text-align: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; transition: all 0.4s ease; letter-spacing: 0.05em; }
         .active-orange { color: var(--brand-orange); text-shadow: 0 0 15px rgba(249, 115, 22, 0.5); transform: translateY(-2px); }
 
-        /* Services Bento */
+        /* Servicios Bento */
         .services-section { padding: 10rem 5%; }
         .bento-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
         .bento-card { background: rgba(10, 10, 15, 0.4); border: 1px solid rgba(27, 58, 107, 0.3); border-radius: 24px; padding: 3rem; transition: all 0.4s ease; display: flex; flex-direction: column; justify-content: space-between; position: relative; overflow: hidden; backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
@@ -823,6 +547,9 @@ export default function App() {
         .footer-cta { padding: 10rem 5%; text-align: center; border-top: 1px solid rgba(27, 58, 107, 0.2); background: linear-gradient(180deg, transparent 0%, #050508 100%); }
         .footer-cta h2 { font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
         .footer-cta p { font-size: 1.3rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 3rem; line-height: 1.6; }
+        .footer-email-contact { margin-top: 1.5rem; font-size: 1rem; color: var(--text-muted); }
+        .footer-email-contact a { color: var(--brand-orange); text-decoration: none; font-weight: 600; }
+        .footer-email-contact a:hover { text-decoration: underline; }
 
         /* Media Queries */
         @media (max-width: 900px) {
@@ -834,30 +561,28 @@ export default function App() {
           .glass-nav { padding: 1rem 5%; }
           .nav-logo-wrapper { transform: scale(0.45); margin: -25px -40px; }
           .nav-controls { gap: 0.8rem; }
-          .nav-button { padding: 0.6rem 1rem; font-size: 0.9rem; }
+          .nav-button { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
           .lang-toggle { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
           .hero-section { padding-top: 10rem; }
-          .hero-logo { display: none; } /* Hide big logo on mobile hero to save space */
+          .hero-logo { display: none; } 
         }
       `}</style>
 
       {/* --- NAVEGACIÓN --- */}
-      <nav
-        className={`glass-nav ${isScrolled ? 'scrolled' : ''}`}
-        aria-label="Main Navigation"
-      >
+      <nav className={`glass-nav ${isScrolled ? 'scrolled' : ''}`} aria-label="Main Navigation">
         <div className="nav-logo-wrapper">
           <Logo size="small" />
         </div>
         <div className="nav-controls">
-          <button
-            className="lang-toggle"
+          <button 
+            className="lang-toggle" 
             onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
             aria-label="Toggle language"
           >
             <Globe size={16} /> {lang.toUpperCase()}
           </button>
-          <button className="nav-button" onClick={handleLowFrictionClick}>
+          {/* Botón CTA del menú ahora abre correo */}
+          <button className="nav-button" onClick={handleContactClick}>
             {t.nav_cta}
           </button>
         </div>
@@ -874,8 +599,7 @@ export default function App() {
           <ScrollReveal delay={0.2}>
             <p className="hero-kicker">{t.hero_kicker}</p>
             <h1 className="hero-title">
-              {t.hero_title_1}
-              <br />
+              {t.hero_title_1}<br />
               <span>{t.hero_title_2}</span>
             </h1>
           </ScrollReveal>
@@ -884,12 +608,12 @@ export default function App() {
           </ScrollReveal>
           <ScrollReveal delay={0.4}>
             <div>
-              <button className="cta-primary" onClick={handleLowFrictionClick}>
+              {/* Botón CTA Principal abre correo */}
+              <button className="cta-primary" onClick={handleContactClick}>
                 <MousePointerClick size={20} /> {t.hero_cta}
               </button>
               <span className="cta-subtext">
-                <CheckCircle2 size={14} color="var(--success-green)" />{' '}
-                {t.hero_sub_cta}
+                <CheckCircle2 size={14} color="var(--success-green)"/> {t.hero_sub_cta}
               </span>
             </div>
           </ScrollReveal>
@@ -920,7 +644,7 @@ export default function App() {
               <p className="section-subtitle">{t.prob_subtitle}</p>
             </header>
           </ScrollReveal>
-
+          
           <div className="problem-grid">
             <ScrollReveal delay={0.1} direction="up">
               <article className="problem-card">
@@ -958,13 +682,10 @@ export default function App() {
               <p className="section-subtitle">{t.bento_subtitle}</p>
             </header>
           </ScrollReveal>
-
+          
           <div className="bento-grid">
             <ScrollReveal delay={0.1} direction="left">
-              <article
-                className="bento-card bento-highlight"
-                style={{ height: '100%' }}
-              >
+              <article className="bento-card bento-highlight" style={{ height: '100%' }}>
                 <div>
                   <BarChart className="bento-card-icon" />
                   <h3>{t.bento_1_title}</h3>
@@ -972,7 +693,7 @@ export default function App() {
                 </div>
               </article>
             </ScrollReveal>
-
+            
             <ScrollReveal delay={0.2} direction="right">
               <article className="bento-card" style={{ height: '100%' }}>
                 <ShoppingCart className="bento-card-icon" />
@@ -980,7 +701,7 @@ export default function App() {
                 <p>{t.bento_2_desc}</p>
               </article>
             </ScrollReveal>
-
+            
             <ScrollReveal delay={0.3} direction="left">
               <article className="bento-card" style={{ height: '100%' }}>
                 <Target className="bento-card-icon" />
@@ -988,7 +709,7 @@ export default function App() {
                 <p>{t.bento_3_desc}</p>
               </article>
             </ScrollReveal>
-
+            
             <ScrollReveal delay={0.4} direction="right">
               <article className="bento-card" style={{ height: '100%' }}>
                 <Zap className="bento-card-icon" />
@@ -1007,36 +728,17 @@ export default function App() {
               <h2 className="section-title">{t.test_title}</h2>
             </header>
           </ScrollReveal>
-
+          
           <div className="testimonials-grid">
             {[
-              {
-                name: t.test_1_author,
-                role: t.test_1_role,
-                text: t.test_1_text,
-              },
-              {
-                name: t.test_2_author,
-                role: t.test_2_role,
-                text: t.test_2_text,
-              },
-              {
-                name: t.test_3_author,
-                role: t.test_3_role,
-                text: t.test_3_text,
-              },
+              { name: t.test_1_author, role: t.test_1_role, text: t.test_1_text },
+              { name: t.test_2_author, role: t.test_2_role, text: t.test_2_text },
+              { name: t.test_3_author, role: t.test_3_role, text: t.test_3_text }
             ].map((test, i) => (
               <ScrollReveal key={i} delay={i * 0.15} direction="up">
                 <article className="testimonial-card">
                   <div className="stars" aria-label="5 stars">
-                    {[...Array(5)].map((_, si) => (
-                      <Star
-                        key={si}
-                        size={18}
-                        fill="var(--brand-orange)"
-                        color="var(--brand-orange)"
-                      />
-                    ))}
+                    {[...Array(5)].map((_, si) => <Star key={si} size={18} fill="var(--brand-orange)" color="var(--brand-orange)" />)}
                   </div>
                   <p className="testimonial-text">"{test.text}"</p>
                   <div className="testimonial-author">
@@ -1058,37 +760,25 @@ export default function App() {
         <ScrollReveal direction="up">
           <h2>{t.footer_title}</h2>
           <p>{t.footer_desc}</p>
+          
           <div>
-            <button className="cta-primary" onClick={handleLowFrictionClick}>
-              <MousePointerClick size={20} /> {t.footer_cta}
+            <button className="cta-primary" onClick={handleContactClick}>
+              <Mail size={20} /> {t.footer_cta}
             </button>
-            <span
-              className="cta-subtext"
-              style={{ justifyContent: 'center', marginTop: '15px' }}
-            >
-              <CheckCircle2 size={14} color="var(--success-green)" />{' '}
-              {t.hero_sub_cta}
+            <span className="cta-subtext" style={{justifyContent: 'center', marginTop: '15px'}}>
+              <CheckCircle2 size={14} color="var(--success-green)"/> {t.hero_sub_cta}
             </span>
           </div>
 
-          <div
-            style={{
-              marginTop: '5rem',
-              scale: '0.45',
-              opacity: 0.5,
-              display: 'flex',
-              justifyContent: 'center',
-            }}
-          >
+          <p className="footer-email-contact">
+            {t.footer_email_text}
+            <a href="mailto:franco@gosurgedigital.digital">franco@gosurgedigital.digital</a>
+          </p>
+          
+          <div style={{ marginTop: '5rem', scale: '0.45', opacity: 0.5, display: 'flex', justifyContent: 'center' }}>
             <Logo size="small" />
           </div>
-          <p
-            style={{
-              marginTop: '0',
-              color: 'var(--text-muted)',
-              fontSize: '0.85rem',
-            }}
-          >
+          <p style={{ marginTop: '0', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
             {t.footer_rights}
           </p>
         </ScrollReveal>
