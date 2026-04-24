@@ -12,52 +12,56 @@ import {
   Zap,
   MousePointerClick,
   CheckCircle2,
-  Mail
+  Mail,
+  Shield,
+  AlertTriangle,
+  Eye,
+  DollarSign
 } from 'lucide-react';
 
 // --- DICCIONARIO DE IDIOMAS (INGLÉS Y ESPAÑOL) ---
 const translations = {
   en: {
-    nav_problem: "The Challenge",
+    nav_problem: "The Problem",
     nav_system: "Our System",
     nav_results: "Results",
-    nav_cta: "Let's Talk",
-    hero_kicker: "E-COMMERCE & B2B LEAD GEN",
-    hero_title_1: "Stop Losing Traffic.",
-    hero_title_2: "Start Scaling Sales.",
-    hero_subtitle: "We build predictable growth systems. Advanced E-commerce strategies and highly qualified B2B & B2C Lead Generation engines.",
-    hero_cta: "Get a Free Audit",
-    hero_sub_cta: "No commitment required",
-    marquee: ["B2B/B2C Lead Generation", "E-commerce Scalability", "Omnichannel Ads", "Predictable Systems", "ROAS Increase", "CRO Optimization"],
-    prob_kicker: "The Challenge",
-    prob_title: "Why your current strategy is failing",
-    prob_subtitle: "Stop competing on price. Start competing on value and precision.",
-    prob_1_title: "Traffic without Conversion",
-    prob_1_desc: "You invest thousands in ads, get clicks, but your e-commerce sales or leads don't reflect that investment.",
-    prob_2_title: "Sky-high CAC",
-    prob_2_desc: "Your Customer Acquisition Costs (CAC) are constantly rising, destroying your profit margins month after month.",
-    prob_3_title: "Stagnant Growth",
-    prob_3_desc: "You lack a predictable system. Relying on word-of-mouth or sporadic campaigns makes scaling impossible.",
-    wf_kicker: "The Go Surge System",
-    wf_title: "The Infinite Sales Loop",
-    wf_subtitle: "A frictionless journey from first click to loyal customer.",
-    wf_1: "1. We Capture",
-    wf_2: "2. Drive to Store",
-    wf_3: "3. You Sell",
-    wf_4: "4. Growth Loop",
-    bento_kicker: "The Solution",
-    bento_title: "The Go Surge Ecosystem",
-    bento_subtitle: "Everything you need to scale your revenue predictably.",
-    bento_1_title: "Data-Driven Integral Growth",
-    bento_1_desc: "We don't sell 'likes'. We build mathematically designed sales funnels to maximize your Return on Ad Spend (ROAS).",
-    bento_2_title: "E-commerce Scalability",
-    bento_2_desc: "We optimize your CRO and buying journey to turn casual browsers into loyal buyers effortlessly.",
-    bento_3_title: "B2B/B2C Lead Generation",
-    bento_3_desc: "High-intent prospect capture systems. We filter the noise and deliver hot leads ready for your CRM.",
-    bento_4_title: "Omnichannel Advertising",
-    bento_4_desc: "We master Meta, Google and TikTok Ads to impact your ideal client exactly where they spend their time.",
-    test_kicker: "Social Proof",
-    test_title: "Results That Speak For Themselves",
+    nav_cta: "Free Audit",
+    hero_kicker: "AD FRAUD DETECTION & GROWTH OPTIMIZATION",
+    hero_title_1: "Are You Paying for",
+    hero_title_2: "Fake Traffic?",
+    hero_subtitle: "73% of accounts we audit show hidden cost inflation. We detect ad fraud, optimize your spend, and build predictable growth systems for E-commerce and B2B companies.",
+    hero_cta: "Get Your Free Anti-Fraud Audit",
+    hero_sub_cta: "Confidential analysis • No commitment",
+    marquee: ["Ad Fraud Detection", "Hidden Cost Analysis", "ROAS Optimization", "Traffic Quality Audit", "B2B/B2C Lead Gen", "E-commerce Growth"],
+    prob_kicker: "The Hidden Problem",
+    prob_title: "How agencies inflate your ad costs without you knowing",
+    prob_subtitle: "These tactics drain thousands from your budget every month. Most businesses never discover them.",
+    prob_1_title: "Multi-Account Inflation",
+    prob_1_desc: "Your agency runs ads from multiple advertisers (Vietnam, India, shell accounts) to hide real CPAs and charge you 2-3x actual costs.",
+    prob_2_title: "Ghost Traffic Purchases",
+    prob_2_desc: "Buying low-quality traffic from click farms and bot networks to inflate impression numbers while you pay premium rates.",
+    prob_3_title: "Budget Black Holes",
+    prob_3_desc: "Phantom campaigns, undisclosed markups, and opaque reporting that make it impossible to track where your money actually goes.",
+    wf_kicker: "Our Anti-Fraud Process",
+    wf_title: "From Detection to Predictable Growth",
+    wf_subtitle: "A forensic audit followed by clean, data-driven systems.",
+    wf_1: "1. Audit",
+    wf_2: "2. Detect Fraud",
+    wf_3: "3. Clean Setup",
+    wf_4: "4. Scale Clean",
+    bento_kicker: "What We Deliver",
+    bento_title: "Transparent Growth Systems",
+    bento_subtitle: "No hidden costs. No inflated numbers. Just real results you can track.",
+    bento_1_title: "Forensic Ad Account Audit",
+    bento_1_desc: "We analyze your current ad accounts for multi-advertiser schemes, bot traffic, phantom campaigns, and cost inflation tactics. Full confidential report included.",
+    bento_2_title: "Clean E-commerce Systems",
+    bento_2_desc: "Rebuild your acquisition funnels with verified traffic sources, transparent attribution, and CRO optimization that converts real buyers.",
+    bento_3_title: "Verified B2B/B2C Leads",
+    bento_3_desc: "High-intent lead generation with full source transparency. No fake contacts, no inflated numbers—every lead traceable to real campaigns.",
+    bento_4_title: "Multi-Platform Mastery",
+    bento_4_desc: "Meta, Google, TikTok managed with complete transparency. You see every dollar, every click, every conversion in real-time.",
+    test_kicker: "Real Results",
+    test_title: "What Happens After the Audit",
     test_1_text: "We scaled our E-commerce sales by 300% in less than 6 months. Finally a predictable system we can rely on.",
     test_1_author: "Marcos T.",
     test_1_role: "CEO, B2C Retail",
@@ -67,53 +71,81 @@ const translations = {
     test_3_text: "The omnichannel system revolutionized our client acquisition. We went from relying on referrals to having a constant flow.",
     test_3_author: "David R.",
     test_3_role: "SaaS Founder",
-    footer_title: "Ready to uncover your hidden revenue?",
-    footer_desc: "We work with a limited number of brands to guarantee exceptional results. Let's analyze your current funnel, 100% free.",
-    footer_cta: "Request Your Free Audit",
-    footer_email_text: "Or email us directly at: ",
-    footer_rights: "© 2026 Go Surge Digital. All rights reserved."
+    stats_kicker: "The Cost of Fraud",
+    stats_title: "What We Find in Most Audits",
+    stat_1_number: "73%",
+    stat_1_label: "of accounts show cost inflation",
+    stat_2_number: "2-4x",
+    stat_2_label: "average markup on real CPAs",
+    stat_3_number: "$47K",
+    stat_3_label: "average wasted spend per year",
+    form_title: "Request Your Confidential Audit",
+    form_subtitle: "We'll analyze your ad accounts and send you a detailed fraud detection report within 48 hours. Everything we find stays confidential.",
+    form_name: "Full Name",
+    form_email: "Work Email",
+    form_company: "Company Name",
+    form_website: "Website URL",
+    form_spend: "Monthly Ad Spend",
+    form_spend_option_1: "Under $5K",
+    form_spend_option_2: "$5K - $25K",
+    form_spend_option_3: "$25K - $100K",
+    form_spend_option_4: "$100K+",
+    form_platform: "Current Ad Platforms",
+    form_platform_meta: "Meta (Facebook/Instagram)",
+    form_platform_google: "Google Ads",
+    form_platform_tiktok: "TikTok",
+    form_platform_other: "Other",
+    form_concern: "What concerns you most? (Optional)",
+    form_submit: "Get My Free Audit",
+    form_privacy: "Your data is confidential. We never share audit findings with third parties.",
+    footer_title: "Ready to know the truth about your ad spend?",
+    footer_desc: "We work with a limited number of companies to ensure deep, confidential analysis. Get your fraud detection report in 48 hours.",
+    footer_cta: "Schedule Audit Call",
+    footer_email_text: "Or email us directly: ",
+    footer_rights: "© 2026 Go Surge Digital. All rights reserved.",
+    footer_confidential: "All audits are conducted under strict confidentiality agreements"
   },
   es: {
-    nav_problem: "El Reto",
+    nav_problem: "El Problema",
     nav_system: "Nuestro Sistema",
     nav_results: "Resultados",
-    nav_cta: "Hablemos",
-    hero_kicker: "E-COMMERCE & B2B LEAD GEN",
-    hero_title_1: "Deja de Perder Tráfico.",
-    hero_title_2: "Empieza a Escalar Ventas.",
-    hero_subtitle: "Construimos sistemas predecibles de crecimiento. Estrategias avanzadas para E-commerce y motores de Generación de Leads B2B y B2C.",
-    hero_cta: "Obtener Auditoría Gratuita",
-    hero_sub_cta: "Sin ningún compromiso",
-    marquee: ["Generación de Leads B2B/B2C", "Escalabilidad E-commerce", "Publicidad Omnicanal", "Sistemas Predecibles", "Aumento de ROAS", "Optimización de CRO"],
-    prob_kicker: "El Reto",
-    prob_title: "Por qué tu estrategia actual falla",
-    prob_subtitle: "Deja de competir por precio. Empieza a competir por valor y precisión.",
-    prob_1_title: "Tráfico sin Conversión",
-    prob_1_desc: "Inviertes miles en pauta, consigues clics, pero las ventas de tu e-commerce o los leads no reflejan esa inversión.",
-    prob_2_title: "CAC por las Nubes",
-    prob_2_desc: "Tus costos de adquisición de clientes (CAC) son cada vez más altos, destrozando tus márgenes de beneficio.",
-    prob_3_title: "Crecimiento Estancado",
-    prob_3_desc: "No tienes un sistema predecible. Depender del boca a boca o de campañas esporádicas hace imposible escalar.",
-    wf_kicker: "El Sistema Go Surge",
-    wf_title: "El Bucle Infinito de Ventas",
-    wf_subtitle: "Un viaje sin fricción desde el primer clic hasta el cliente recurrente.",
-    wf_1: "1. Capturamos",
-    wf_2: "2. A tu Tienda",
-    wf_3: "3. Tú Vendes",
-    wf_4: "4. Bucle de Escala",
-    bento_kicker: "La Solución",
-    bento_title: "El Ecosistema Go Surge",
-    bento_subtitle: "Todo lo que necesitas para escalar tu facturación de forma predecible.",
-    bento_1_title: "Crecimiento Integral Orientado a Datos",
-    bento_1_desc: "No vendemos 'likes'. Construimos embudos de venta diseñados matemáticamente para maximizar tu retorno de inversión (ROAS).",
-    bento_2_title: "Escalabilidad E-commerce",
-    bento_2_desc: "Optimizamos tu CRO y el viaje de compra para convertir visitantes curiosos en compradores recurrentes de forma fluida.",
-    bento_3_title: "Generación de Leads B2B/B2C",
-    bento_3_desc: "Sistemas de captación de alta intención. Filtramos el ruido y entregamos prospectos listos para tu CRM.",
-    bento_4_title: "Publicidad Omnicanal",
-    bento_4_desc: "Dominamos Meta Ads, Google Ads y TikTok Ads para impactar a tu cliente ideal exactamente donde pasa su tiempo.",
-    test_kicker: "Prueba Social",
-    test_title: "Resultados que Hablan por Sí Solos",
+    nav_cta: "Auditoría Gratis",
+    hero_kicker: "DETECCIÓN DE FRAUDE PUBLICITARIO Y OPTIMIZACIÓN DE CRECIMIENTO",
+    hero_title_1: "¿Estás Pagando por",
+    hero_title_2: "Tráfico Falso?",
+    hero_subtitle: "El 73% de las cuentas que auditamos muestran inflación de costos ocultos. Detectamos fraude publicitario, optimizamos tu inversión y construimos sistemas de crecimiento predecibles para empresas E-commerce y B2B.",
+    hero_cta: "Obtener Auditoría Anti-Fraude Gratuita",
+    hero_sub_cta: "Análisis confidencial • Sin compromiso",
+    marquee: ["Detección de Fraude", "Análisis de Costos Ocultos", "Optimización de ROAS", "Auditoría de Calidad", "Leads B2B/B2C", "Crecimiento E-commerce"],
+    prob_kicker: "El Problema Oculto",
+    prob_title: "Cómo las agencias inflan tus costos publicitarios sin que lo sepas",
+    prob_subtitle: "Estas tácticas drenan miles de tu presupuesto cada mes. La mayoría de negocios nunca las descubren.",
+    prob_1_title: "Inflación Multi-Cuenta",
+    prob_1_desc: "Tu agencia corre ads desde múltiples anunciantes (Vietnam, India, cuentas fantasma) para ocultar los CPAs reales y cobrarte 2-3x los costos verdaderos.",
+    prob_2_title: "Compra de Tráfico Fantasma",
+    prob_2_desc: "Compran tráfico de baja calidad desde click farms y redes de bots para inflar números de impresiones mientras tú pagas tarifas premium.",
+    prob_3_title: "Agujeros Negros de Presupuesto",
+    prob_3_desc: "Campañas fantasma, márgenes no revelados y reportes opacos que hacen imposible rastrear dónde va realmente tu dinero.",
+    wf_kicker: "Nuestro Proceso Anti-Fraude",
+    wf_title: "De la Detección al Crecimiento Predecible",
+    wf_subtitle: "Auditoría forense seguida de sistemas limpios basados en datos.",
+    wf_1: "1. Auditoría",
+    wf_2: "2. Detectar Fraude",
+    wf_3: "3. Setup Limpio",
+    wf_4: "4. Escalar Limpio",
+    bento_kicker: "Lo Que Entregamos",
+    bento_title: "Sistemas de Crecimiento Transparentes",
+    bento_subtitle: "Sin costos ocultos. Sin números inflados. Solo resultados reales que puedes rastrear.",
+    bento_1_title: "Auditoría Forense de Cuentas Publicitarias",
+    bento_1_desc: "Analizamos tus cuentas actuales para detectar esquemas multi-anunciante, tráfico de bots, campañas fantasma y tácticas de inflación de costos. Reporte confidencial completo incluido.",
+    bento_2_title: "Sistemas E-commerce Limpios",
+    bento_2_desc: "Reconstruimos tus embudos de adquisición con fuentes de tráfico verificadas, atribución transparente y optimización CRO que convierte compradores reales.",
+    bento_3_title: "Leads B2B/B2C Verificados",
+    bento_3_desc: "Generación de leads de alta intención con total transparencia de fuentes. Sin contactos falsos, sin números inflados—cada lead rastreable a campañas reales.",
+    bento_4_title: "Dominio Multi-Plataforma",
+    bento_4_desc: "Meta, Google, TikTok manejados con total transparencia. Ves cada dólar, cada clic, cada conversión en tiempo real.",
+    test_kicker: "Resultados Reales",
+    test_title: "Qué Pasa Después de la Auditoría",
     test_1_text: "Escalamos nuestras ventas de E-commerce un 300% en menos de 6 meses. Finalmente un sistema en el que podemos confiar.",
     test_1_author: "Marcos T.",
     test_1_role: "CEO, Retail B2C",
@@ -123,11 +155,39 @@ const translations = {
     test_3_text: "El sistema omnicanal revolucionó nuestra captación de clientes. Pasamos de depender de referidos a tener un flujo constante.",
     test_3_author: "David R.",
     test_3_role: "Fundador SaaS",
-    footer_title: "¿Listo para descubrir tus ingresos ocultos?",
-    footer_desc: "Trabajamos con un número limitado de marcas para garantizar calidad. Analicemos tu embudo actual, 100% gratis.",
-    footer_cta: "Solicitar mi Auditoría Gratuita",
-    footer_email_text: "O escríbenos directamente a: ",
-    footer_rights: "© 2026 Go Surge Digital. Todos los derechos reservados."
+    stats_kicker: "El Costo del Fraude",
+    stats_title: "Lo Que Encontramos en la Mayoría de Auditorías",
+    stat_1_number: "73%",
+    stat_1_label: "de cuentas muestran inflación de costos",
+    stat_2_number: "2-4x",
+    stat_2_label: "margen promedio sobre CPAs reales",
+    stat_3_number: "$47K",
+    stat_3_label: "gasto desperdiciado promedio por año",
+    form_title: "Solicita tu Auditoría Confidencial",
+    form_subtitle: "Analizaremos tus cuentas publicitarias y te enviaremos un reporte detallado de detección de fraude en 48 horas. Todo lo que encontremos se mantiene confidencial.",
+    form_name: "Nombre Completo",
+    form_email: "Email Corporativo",
+    form_company: "Nombre de la Empresa",
+    form_website: "URL del Sitio Web",
+    form_spend: "Inversión Publicitaria Mensual",
+    form_spend_option_1: "Menos de $5K",
+    form_spend_option_2: "$5K - $25K",
+    form_spend_option_3: "$25K - $100K",
+    form_spend_option_4: "$100K+",
+    form_platform: "Plataformas Publicitarias Actuales",
+    form_platform_meta: "Meta (Facebook/Instagram)",
+    form_platform_google: "Google Ads",
+    form_platform_tiktok: "TikTok",
+    form_platform_other: "Otras",
+    form_concern: "¿Qué te preocupa más? (Opcional)",
+    form_submit: "Obtener Mi Auditoría Gratis",
+    form_privacy: "Tus datos son confidenciales. Nunca compartimos hallazgos de auditorías con terceros.",
+    footer_title: "¿Listo para conocer la verdad sobre tu inversión publicitaria?",
+    footer_desc: "Trabajamos con un número limitado de empresas para asegurar análisis profundos y confidenciales. Obtén tu reporte de detección de fraude en 48 horas.",
+    footer_cta: "Agendar Llamada de Auditoría",
+    footer_email_text: "O escríbenos directamente: ",
+    footer_rights: "© 2026 Go Surge Digital. Todos los derechos reservados.",
+    footer_confidential: "Todas las auditorías se realizan bajo estrictos acuerdos de confidencialidad"
   }
 };
 
@@ -230,7 +290,7 @@ const WorkflowSection = ({ t }) => {
   const [startAnimation, setStartAnimation] = useState(false);
   const workflowRef = useRef(null);
 
-  const O = '#ffffff';
+  const W = '#ffffff';
   const ORANGE = '#F97316'; 
   const NAVY = '#1B3A6B'; 
   const DARK = '#07070f';
@@ -282,7 +342,7 @@ const WorkflowSection = ({ t }) => {
   });
 
   const iconStyle = (isActive) => ({
-    stroke: isActive ? O : NAVY,
+    stroke: isActive ? W : NAVY,
     transition: 'stroke 0.4s ease'
   });
 
@@ -350,22 +410,18 @@ const WorkflowSection = ({ t }) => {
 
             <circle cx="100" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 1)} />
             <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 1)}>
-               <path d="M85,85 L85,75 A15,15 0 0,1 115,75 L115,85" strokeWidth="2"/>
-               <rect x="82" y="85" width="6" height="8" fill="currentColor"/>
-               <rect x="112" y="85" width="6" height="8" fill="currentColor"/>
+               <path d="M88,72 L88,88 L112,88 L112,72 Z M95,75 L95,85 M105,75 L105,85" strokeWidth="2"/>
             </g>
 
             <circle cx="250" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 3)} />
             <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 3)}>
-              <rect x="238" y="70" width="24" height="20" rx="2" strokeWidth="2" />
-              <path d="M245,90 L255,90 M250,90 L250,94 M242,94 L258,94" strokeWidth="2" />
+              <path d="M238,75 L262,75 M238,80 L262,80 M238,85 L250,85" strokeWidth="2" />
+              <circle cx="258" cy="72" r="2" fill="currentColor"/>
             </g>
 
             <circle cx="400" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 5)} />
             <g fill="none" strokeLinecap="round" strokeLinejoin="round" style={iconStyle(step >= 5)}>
-              <circle cx="394" cy="92" r="2" strokeWidth="2"/>
-              <circle cx="406" cy="92" r="2" strokeWidth="2"/>
-              <path d="M386,66 L390,66 L393,85 L408,85 L411,72 L391,72" strokeWidth="2"/>
+              <path d="M388,82 L394,76 L406,88 L412,82" strokeWidth="2"/>
             </g>
 
             <circle cx="550" cy="80" r="34" strokeWidth="2" style={nodeStyle(step >= 7)} />
@@ -383,6 +439,254 @@ const WorkflowSection = ({ t }) => {
           <div className={`lb ${step >= 7 ? 'active-orange' : ''}`} style={{ width: '100px' }}>{t.wf_4}</div>
         </div>
       </ScrollReveal>
+    </section>
+  );
+};
+
+// --- COMPONENTE DE FORMULARIO ---
+const AuditForm = ({ t }) => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    website: '',
+    spend: '',
+    platforms: [],
+    concern: ''
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    
+    if (type === 'checkbox') {
+      setFormData(prev => ({
+        ...prev,
+        platforms: checked 
+          ? [...prev.platforms, value]
+          : prev.platforms.filter(p => p !== value)
+      }));
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value
+      }));
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    // Construir el mensaje del email
+    const emailBody = `
+Solicitud de Auditoría Anti-Fraude
+
+Nombre: ${formData.name}
+Email: ${formData.email}
+Empresa: ${formData.company}
+Website: ${formData.website}
+Inversión Mensual: ${formData.spend}
+Plataformas: ${formData.platforms.join(', ')}
+Preocupación Principal: ${formData.concern || 'No especificada'}
+    `.trim();
+
+    // Abrir mailto con los datos
+    window.location.href = `mailto:franco@gosurgedigital.digital?subject=Solicitud de Auditoría Anti-Fraude - ${formData.company}&body=${encodeURIComponent(emailBody)}`;
+  };
+
+  return (
+    <section className="form-section" id="audit-form">
+      <ScrollReveal>
+        <div className="form-container">
+          <div className="form-header">
+            <Shield className="form-icon" size={48} />
+            <h2>{t.form_title}</h2>
+            <p>{t.form_subtitle}</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="audit-form">
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="name">{t.form_name} *</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Juan Pérez"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="email">{t.form_email} *</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="juan@empresa.com"
+                />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group">
+                <label htmlFor="company">{t.form_company} *</label>
+                <input
+                  type="text"
+                  id="company"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleChange}
+                  required
+                  placeholder="Mi Empresa SRL"
+                />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="website">{t.form_website} *</label>
+                <input
+                  type="url"
+                  id="website"
+                  name="website"
+                  value={formData.website}
+                  onChange={handleChange}
+                  required
+                  placeholder="https://miempresa.com"
+                />
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="spend">{t.form_spend} *</label>
+              <select
+                id="spend"
+                name="spend"
+                value={formData.spend}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Selecciona un rango</option>
+                <option value="under-5k">{t.form_spend_option_1}</option>
+                <option value="5k-25k">{t.form_spend_option_2}</option>
+                <option value="25k-100k">{t.form_spend_option_3}</option>
+                <option value="100k-plus">{t.form_spend_option_4}</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>{t.form_platform} *</label>
+              <div className="checkbox-group">
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="platforms"
+                    value="meta"
+                    checked={formData.platforms.includes('meta')}
+                    onChange={handleChange}
+                  />
+                  <span>{t.form_platform_meta}</span>
+                </label>
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="platforms"
+                    value="google"
+                    checked={formData.platforms.includes('google')}
+                    onChange={handleChange}
+                  />
+                  <span>{t.form_platform_google}</span>
+                </label>
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="platforms"
+                    value="tiktok"
+                    checked={formData.platforms.includes('tiktok')}
+                    onChange={handleChange}
+                  />
+                  <span>{t.form_platform_tiktok}</span>
+                </label>
+                <label className="checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="platforms"
+                    value="other"
+                    checked={formData.platforms.includes('other')}
+                    onChange={handleChange}
+                  />
+                  <span>{t.form_platform_other}</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="concern">{t.form_concern}</label>
+              <textarea
+                id="concern"
+                name="concern"
+                value={formData.concern}
+                onChange={handleChange}
+                rows="4"
+                placeholder="Ej: Sospecho que mis números no cuadran, veo anunciantes extraños en mi cuenta, etc."
+              />
+            </div>
+
+            <button type="submit" className="form-submit">
+              <Eye size={20} />
+              {t.form_submit}
+            </button>
+
+            <p className="form-privacy">
+              <Shield size={16} />
+              {t.form_privacy}
+            </p>
+          </form>
+        </div>
+      </ScrollReveal>
+    </section>
+  );
+};
+
+// --- SECCIÓN DE ESTADÍSTICAS ---
+const StatsSection = ({ t }) => {
+  return (
+    <section className="stats-section">
+      <ScrollReveal>
+        <header className="section-header">
+          <p className="section-kicker">{t.stats_kicker}</p>
+          <h2 className="section-title">{t.stats_title}</h2>
+        </header>
+      </ScrollReveal>
+
+      <div className="stats-grid">
+        <ScrollReveal delay={0.1}>
+          <div className="stat-card">
+            <AlertTriangle className="stat-icon" />
+            <div className="stat-number">{t.stat_1_number}</div>
+            <div className="stat-label">{t.stat_1_label}</div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.2}>
+          <div className="stat-card">
+            <TrendingUp className="stat-icon" />
+            <div className="stat-number">{t.stat_2_number}</div>
+            <div className="stat-label">{t.stat_2_label}</div>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal delay={0.3}>
+          <div className="stat-card">
+            <DollarSign className="stat-icon" />
+            <div className="stat-number">{t.stat_3_number}</div>
+            <div className="stat-label">{t.stat_3_label}</div>
+          </div>
+        </ScrollReveal>
+      </div>
     </section>
   );
 };
@@ -417,13 +721,12 @@ export default function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
-  // --- FUNCIÓN MAILTO PARA CONTACTO CTAs ---
-  const handleContactClick = (e) => {
-  e.preventDefault();
-  // REEMPLAZA ESTE LINK POR TU LINK DE CALENDLY
-  const calendlyUrl = 'https://calendly.com/franco-gosurgedigital/30min'; 
-  window.open(calendlyUrl, '_blank');
-};
+  // --- FUNCIÓN PARA CALENDLY ---
+  const handleCalendlyClick = (e) => {
+    e.preventDefault();
+    const calendlyUrl = 'https://calendly.com/franco-gosurgedigital/30min'; 
+    window.open(calendlyUrl, '_blank');
+  };
 
   return (
     <div className="website-container">
@@ -516,6 +819,15 @@ export default function App() {
         .problem-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #ffffff; font-weight: 700; }
         .problem-card p { color: var(--text-muted); line-height: 1.7; }
 
+        /* Estadísticas */
+        .stats-section { padding: 8rem 5%; background: rgba(10, 10, 15, 0.3); }
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; max-width: 1000px; margin: 0 auto; }
+        .stat-card { background: rgba(10, 10, 15, 0.5); border: 1px solid rgba(249, 115, 22, 0.3); border-radius: 20px; padding: 3rem 2rem; text-align: center; transition: all 0.4s ease; }
+        .stat-card:hover { transform: translateY(-5px); border-color: rgba(249, 115, 22, 0.6); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.15); }
+        .stat-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--brand-orange); }
+        .stat-number { font-size: 3.5rem; font-weight: 800; color: var(--brand-orange); margin-bottom: 0.5rem; }
+        .stat-label { font-size: 1.1rem; color: var(--text-muted); font-weight: 500; }
+
         /* Bucle */
         .workflow-section { padding: 8rem 5%; position: relative; max-width: 1000px; margin: 0 auto; }
         .lb { text-align: center; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.3); text-transform: uppercase; transition: all 0.4s ease; letter-spacing: 0.05em; }
@@ -530,6 +842,28 @@ export default function App() {
         .bento-card-icon { width: 44px; height: 44px; color: var(--brand-orange); margin-bottom: 1.5rem; }
         .bento-card h3 { font-size: 1.8rem; margin-bottom: 1rem; color: #ffffff; font-weight: 700; letter-spacing: -0.01em; }
         .bento-card p { color: var(--text-muted); line-height: 1.7; font-size: 1.1rem; }
+
+        /* Formulario */
+        .form-section { padding: 10rem 5%; background: rgba(10, 10, 15, 0.3); }
+        .form-container { max-width: 800px; margin: 0 auto; background: rgba(10, 10, 15, 0.5); border: 1px solid rgba(27, 58, 107, 0.3); border-radius: 24px; padding: 4rem 3rem; backdrop-filter: blur(12px); }
+        .form-header { text-align: center; margin-bottom: 3rem; }
+        .form-icon { width: 48px; height: 48px; margin: 0 auto 1.5rem; color: var(--brand-orange); }
+        .form-header h2 { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+        .form-header p { font-size: 1.1rem; color: var(--text-muted); line-height: 1.6; }
+        .audit-form { display: flex; flex-direction: column; gap: 1.5rem; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        .form-group { display: flex; flex-direction: column; gap: 0.5rem; }
+        .form-group label { font-size: 0.95rem; font-weight: 600; color: rgba(255,255,255,0.9); }
+        .form-group input, .form-group select, .form-group textarea { padding: 1rem; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; color: #fff; font-family: 'Space Grotesk', sans-serif; font-size: 1rem; transition: all 0.3s ease; }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--brand-orange); background: rgba(255,255,255,0.08); }
+        .form-group textarea { resize: vertical; }
+        .checkbox-group { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .checkbox-label { display: flex; align-items: center; gap: 0.5rem; cursor: pointer; padding: 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; transition: all 0.3s ease; }
+        .checkbox-label:hover { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.05); }
+        .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
+        .form-submit { padding: 1.2rem 2.8rem; font-size: 1.15rem; font-weight: 700; color: #000; background: linear-gradient(135deg, #F97316 0%, #ea6c10 100%); border: none; border-radius: 12px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2); }
+        .form-submit:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4); }
+        .form-privacy { text-align: center; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
 
         /* Social Proof */
         .testimonials-section { padding: 8rem 5%; }
@@ -550,12 +884,15 @@ export default function App() {
         .footer-email-contact { margin-top: 1.5rem; font-size: 1rem; color: var(--text-muted); }
         .footer-email-contact a { color: var(--brand-orange); text-decoration: none; font-weight: 600; }
         .footer-email-contact a:hover { text-decoration: underline; }
+        .footer-confidential { margin-top: 2rem; font-size: 0.9rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.5rem; }
 
         /* Media Queries */
         @media (max-width: 900px) {
           .bento-grid { grid-template-columns: 1fr; }
           .labels { gap: 5px; padding: 0 10px !important; }
           .lb { font-size: 10px; width: auto !important; }
+          .form-row { grid-template-columns: 1fr; }
+          .checkbox-group { grid-template-columns: 1fr; }
         }
         @media (max-width: 600px) {
           .glass-nav { padding: 1rem 5%; }
@@ -564,7 +901,8 @@ export default function App() {
           .nav-button { padding: 0.7rem 1.2rem; font-size: 0.9rem; }
           .lang-toggle { padding: 0.4rem 0.6rem; font-size: 0.85rem; }
           .hero-section { padding-top: 10rem; }
-          .hero-logo { display: none; } 
+          .hero-logo { display: none; }
+          .form-container { padding: 2.5rem 1.5rem; }
         }
       `}</style>
 
@@ -581,8 +919,7 @@ export default function App() {
           >
             <Globe size={16} /> {lang.toUpperCase()}
           </button>
-          {/* Botón CTA del menú ahora abre correo */}
-          <button className="nav-button" onClick={handleContactClick}>
+          <button className="nav-button" onClick={handleCalendlyClick}>
             {t.nav_cta}
           </button>
         </div>
@@ -608,12 +945,11 @@ export default function App() {
           </ScrollReveal>
           <ScrollReveal delay={0.4}>
             <div>
-              {/* Botón CTA Principal abre correo */}
-              <button className="cta-primary" onClick={handleContactClick}>
-                <MousePointerClick size={20} /> {t.hero_cta}
-              </button>
+              <a href="#audit-form" className="cta-primary">
+                <Eye size={20} /> {t.hero_cta}
+              </a>
               <span className="cta-subtext">
-                <CheckCircle2 size={14} color="var(--success-green)"/> {t.hero_sub_cta}
+                <Shield size={14} color="var(--success-green)"/> {t.hero_sub_cta}
               </span>
             </div>
           </ScrollReveal>
@@ -635,7 +971,10 @@ export default function App() {
           </div>
         </div>
 
-        {/* --- PAIN POINTS --- */}
+        {/* --- ESTADÍSTICAS DE FRAUDE --- */}
+        <StatsSection t={t} />
+
+        {/* --- PAIN POINTS / FRAUD TACTICS --- */}
         <section className="problem-section">
           <ScrollReveal>
             <header className="section-header">
@@ -648,21 +987,21 @@ export default function App() {
           <div className="problem-grid">
             <ScrollReveal delay={0.1} direction="up">
               <article className="problem-card">
-                <Filter className="problem-icon" />
+                <AlertTriangle className="problem-icon" />
                 <h3>{t.prob_1_title}</h3>
                 <p>{t.prob_1_desc}</p>
               </article>
             </ScrollReveal>
             <ScrollReveal delay={0.2} direction="up">
               <article className="problem-card">
-                <TrendingUp className="problem-icon" />
+                <Users className="problem-icon" />
                 <h3>{t.prob_2_title}</h3>
                 <p>{t.prob_2_desc}</p>
               </article>
             </ScrollReveal>
             <ScrollReveal delay={0.3} direction="up">
               <article className="problem-card">
-                <Users className="problem-icon" />
+                <DollarSign className="problem-icon" />
                 <h3>{t.prob_3_title}</h3>
                 <p>{t.prob_3_desc}</p>
               </article>
@@ -687,7 +1026,7 @@ export default function App() {
             <ScrollReveal delay={0.1} direction="left">
               <article className="bento-card bento-highlight" style={{ height: '100%' }}>
                 <div>
-                  <BarChart className="bento-card-icon" />
+                  <Eye className="bento-card-icon" />
                   <h3>{t.bento_1_title}</h3>
                   <p>{t.bento_1_desc}</p>
                 </div>
@@ -719,6 +1058,9 @@ export default function App() {
             </ScrollReveal>
           </div>
         </section>
+
+        {/* --- FORMULARIO DE AUDITORÍA --- */}
+        <AuditForm t={t} />
 
         {/* --- SOCIAL PROOF --- */}
         <section className="testimonials-section">
@@ -762,17 +1104,22 @@ export default function App() {
           <p>{t.footer_desc}</p>
           
           <div>
-            <button className="cta-primary" onClick={handleContactClick}>
+            <button className="cta-primary" onClick={handleCalendlyClick}>
               <Mail size={20} /> {t.footer_cta}
             </button>
             <span className="cta-subtext" style={{justifyContent: 'center', marginTop: '15px'}}>
-              <CheckCircle2 size={14} color="var(--success-green)"/> {t.hero_sub_cta}
+              <Shield size={14} color="var(--success-green)"/> {t.hero_sub_cta}
             </span>
           </div>
 
           <p className="footer-email-contact">
             {t.footer_email_text}
             <a href="mailto:franco@gosurgedigital.digital">franco@gosurgedigital.digital</a>
+          </p>
+
+          <p className="footer-confidential">
+            <Shield size={16} color="var(--brand-orange)" />
+            {t.footer_confidential}
           </p>
           
           <div style={{ marginTop: '5rem', scale: '0.45', opacity: 0.5, display: 'flex', justifyContent: 'center' }}>
