@@ -451,7 +451,7 @@ const WorkflowSection = ({ t }) => {
   );
 };
 
-// --- COMPONENTE DE FORMULARIO (NETLIFY FORMS - SOLUCIÓN MAILTO) ---
+// --- COMPONENTE DE FORMULARIO ---
 const AuditForm = ({ t }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -462,6 +462,9 @@ const AuditForm = ({ t }) => {
     platforms: [],
     concern: ''
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -481,6 +484,34 @@ const AuditForm = ({ t }) => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    
+    const myForm = e.target;
+    const data = new FormData(myForm);
+
+    // Enviar a Netlify por detrás sin recargar la página (AJAX)
+    fetch(window.location.href, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams(data).toString(),
+    })
+      .then(() => {
+        setIsSubmitted(true);
+        setIsSubmitting(false);
+        // Opcional: resetear el form después de 5 segundos
+        setTimeout(() => {
+          setIsSubmitted(false);
+          setFormData({ name: '', email: '', company: '', website: '', spend: '', platforms: [], concern: '' });
+        }, 5000);
+      })
+      .catch((error) => {
+        console.error(error);
+        setIsSubmitting(false);
+      });
+  };
+
   return (
     <section className="form-section" id="audit-form">
       <ScrollReveal>
@@ -492,7 +523,7 @@ const AuditForm = ({ t }) => {
           </div>
 
           {/* Formulario conectado a Netlify para enviar correos automáticos sin mailto: */}
-          <form name="audit-contact" method="POST" data-netlify="true" className="audit-form">
+          <form name="audit-contact" method="POST" data-netlify="true" className="audit-form" onSubmit={handleSubmit}>
             <input type="hidden" name="form-name" value="audit-contact" />
             
             <div className="form-row">
@@ -626,9 +657,20 @@ const AuditForm = ({ t }) => {
               />
             </div>
 
-            <button type="submit" className="form-submit">
-              <Eye size={20} />
-              {t.form_submit}
+            <button type="submit" className={`form-submit ${isSubmitted ? 'success' : ''}`} disabled={isSubmitting || isSubmitted}>
+              {isSubmitted ? (
+                <>
+                  <CheckCircle2 size={24} className="success-icon-animate" />
+                  Enviado
+                </>
+              ) : isSubmitting ? (
+                <>Enviando...</>
+              ) : (
+                <>
+                  <Eye size={20} />
+                  {t.form_submit}
+                </>
+              )}
             </button>
 
             <p className="form-privacy">
@@ -853,7 +895,11 @@ export default function App() {
         .checkbox-label:hover { border-color: var(--brand-orange); background: rgba(249, 115, 22, 0.05); }
         .checkbox-label input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; }
         .form-submit { padding: 1.2rem 2.8rem; font-size: 1.15rem; font-weight: 700; color: #000; background: linear-gradient(135deg, #F97316 0%, #ea6c10 100%); border: none; border-radius: 12px; cursor: pointer; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; align-items: center; justify-content: center; gap: 0.8rem; box-shadow: 0 10px 30px rgba(249, 115, 22, 0.2); }
-        .form-submit:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4); }
+        .form-submit:hover:not(:disabled) { transform: translateY(-4px) scale(1.02); box-shadow: 0 20px 40px rgba(249, 115, 22, 0.4); }
+        .form-submit:disabled { opacity: 0.8; cursor: not-allowed; }
+        .form-submit.success { background: var(--success-green); color: #fff; box-shadow: 0 10px 30px rgba(34, 197, 94, 0.3); }
+        .success-icon-animate { animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        @keyframes popIn { 0% { transform: scale(0); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
         .form-privacy { text-align: center; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-top: 1rem; }
 
         /* Social Proof */
