@@ -60,17 +60,21 @@ const translations = {
     bento_3_desc: "High-intent lead generation with full source transparency. No fake contacts, no inflated numbers—every lead traceable to real campaigns.",
     bento_4_title: "Multi-Platform Mastery",
     bento_4_desc: "Meta, Google, TikTok managed with complete transparency. You see every dollar, every click, every conversion in real-time.",
+    
+    // --- TESTIMONIOS (MODIFICADOS SEGÚN TU PEDIDO) ---
     test_kicker: "Real Results",
     test_title: "What Happens After the Audit",
-    test_1_text: "We scaled our E-commerce sales by 300% in less than 6 months. Finally a predictable system we can rely on.",
-    test_1_author: "Marcos T.",
-    test_1_role: "CEO, B2C Retail",
-    test_2_text: "The quality of our B2B leads improved radically. CPA dropped 40% and our team closes more deals with zero friction.",
-    test_2_author: "Laura G.",
-    test_2_role: "Tech Sales Director",
-    test_3_text: "The omnichannel system revolutionized our client acquisition. We went from relying on referrals to having a constant flow.",
-    test_3_author: "David R.",
-    test_3_role: "SaaS Founder",
+    test_1_text: "Go Surge found out we were wasting thousands on fake clicks. Since they cleaned up our accounts, we are getting real, high-quality B2B leads that actually turn into clients. Our cost to get a client dropped in half.",
+    test_1_author: "Brad Blankman",
+    test_1_role: "Founder, Roofbros",
+    test_2_text: "We had no idea our previous agency had hidden fees and was inflating our numbers. The transparency Go Surge brought to our store completely changed our profit margins. Our online sales are breaking records.",
+    test_2_author: "Dae Lim",
+    test_2_role: "Founder & Creative Director, Sundae School",
+    test_3_text: "The audit showed we were paying for ghost traffic that never bought anything. Now, every dollar we spend goes to real shoppers, and the sales at our jewelry store have never been healthier.",
+    test_3_author: "Eli Adams",
+    test_3_role: "Owner, Eli Adams Jewelers",
+    // --------------------------------------------------
+
     stats_kicker: "The Cost of Fraud",
     stats_title: "What We Find in Most Audits",
     stat_1_number: "73%",
@@ -144,17 +148,21 @@ const translations = {
     bento_3_desc: "Generación de leads de alta intención con total transparencia de fuentes. Sin contactos falsos, sin números inflados—cada lead rastreable a campañas reales.",
     bento_4_title: "Dominio Multi-Plataforma",
     bento_4_desc: "Meta, Google, TikTok manejados con total transparencia. Ves cada dólar, cada clic, cada conversión en tiempo real.",
+    
+    // --- TESTIMONIOS (MODIFICADOS SEGÚN TU PEDIDO) ---
     test_kicker: "Resultados Reales",
     test_title: "Qué Pasa Después de la Auditoría",
-    test_1_text: "Escalamos nuestras ventas de E-commerce un 300% en menos de 6 meses. Finalmente un sistema en el que podemos confiar.",
-    test_1_author: "Marcos T.",
-    test_1_role: "CEO, Retail B2C",
-    test_2_text: "La calidad de los leads B2B mejoró radicalmente. El CPA bajó un 40% y nuestro equipo cierra más tratos sin fricción.",
-    test_2_author: "Laura G.",
-    test_2_role: "Directora Comercial Tech",
-    test_3_text: "El sistema omnicanal revolucionó nuestra captación de clientes. Pasamos de depender de referidos a tener un flujo constante.",
-    test_3_author: "David R.",
-    test_3_role: "Fundador SaaS",
+    test_1_text: "Go Surge descubrió que estábamos tirando miles de dólares a la basura en clics falsos. Desde que limpiaron nuestras cuentas, recibimos contactos B2B reales que sí se convierten en clientes. Nuestro costo para conseguir un cliente bajó a la mitad.",
+    test_1_author: "Brad Blankman",
+    test_1_role: "Founder, Roofbros",
+    test_2_text: "No teníamos idea de que nuestra antigua agencia tenía costos ocultos e inflaba nuestros números. La transparencia que Go Surge le dio a nuestra tienda cambió por completo nuestros márgenes de ganancia. Nuestras ventas online están rompiendo récords.",
+    test_2_author: "Dae Lim",
+    test_2_role: "Founder & Directora Creativa, Sundae School",
+    test_3_text: "La auditoría demostró que pagábamos por tráfico fantasma que nunca compraba nada. Ahora, cada dólar que invertimos va a compradores reales, y las ventas de nuestra joyería nunca han estado tan sanas.",
+    test_3_author: "Eli Adams",
+    test_3_role: "Propietario, Eli Adams Jewelers",
+    // --------------------------------------------------
+
     stats_kicker: "El Costo del Fraude",
     stats_title: "Lo Que Encontramos en la Mayoría de Auditorías",
     stat_1_number: "73%",
@@ -443,7 +451,7 @@ const WorkflowSection = ({ t }) => {
   );
 };
 
-// --- COMPONENTE DE FORMULARIO ---
+// --- COMPONENTE DE FORMULARIO (NETLIFY FORMS - SOLUCIÓN MAILTO) ---
 const AuditForm = ({ t }) => {
   const [formData, setFormData] = useState({
     name: '',
@@ -473,26 +481,6 @@ const AuditForm = ({ t }) => {
     }
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    
-    // Construir el mensaje del email
-    const emailBody = `
-Solicitud de Auditoría Anti-Fraude
-
-Nombre: ${formData.name}
-Email: ${formData.email}
-Empresa: ${formData.company}
-Website: ${formData.website}
-Inversión Mensual: ${formData.spend}
-Plataformas: ${formData.platforms.join(', ')}
-Preocupación Principal: ${formData.concern || 'No especificada'}
-    `.trim();
-
-    // Abrir mailto con los datos
-    window.location.href = `mailto:franco@gosurgedigital.digital?subject=Solicitud de Auditoría Anti-Fraude - ${formData.company}&body=${encodeURIComponent(emailBody)}`;
-  };
-
   return (
     <section className="form-section" id="audit-form">
       <ScrollReveal>
@@ -503,7 +491,10 @@ Preocupación Principal: ${formData.concern || 'No especificada'}
             <p>{t.form_subtitle}</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="audit-form">
+          {/* Formulario conectado a Netlify para enviar correos automáticos sin mailto: */}
+          <form name="audit-contact" method="POST" data-netlify="true" className="audit-form">
+            <input type="hidden" name="form-name" value="audit-contact" />
+            
             <div className="form-row">
               <div className="form-group">
                 <label htmlFor="name">{t.form_name} *</label>
@@ -583,7 +574,7 @@ Preocupación Principal: ${formData.concern || 'No especificada'}
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    name="platforms"
+                    name="platforms[]"
                     value="meta"
                     checked={formData.platforms.includes('meta')}
                     onChange={handleChange}
@@ -593,7 +584,7 @@ Preocupación Principal: ${formData.concern || 'No especificada'}
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    name="platforms"
+                    name="platforms[]"
                     value="google"
                     checked={formData.platforms.includes('google')}
                     onChange={handleChange}
@@ -603,7 +594,7 @@ Preocupación Principal: ${formData.concern || 'No especificada'}
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    name="platforms"
+                    name="platforms[]"
                     value="tiktok"
                     checked={formData.platforms.includes('tiktok')}
                     onChange={handleChange}
@@ -613,7 +604,7 @@ Preocupación Principal: ${formData.concern || 'No especificada'}
                 <label className="checkbox-label">
                   <input
                     type="checkbox"
-                    name="platforms"
+                    name="platforms[]"
                     value="other"
                     checked={formData.platforms.includes('other')}
                     onChange={handleChange}
@@ -793,7 +784,7 @@ export default function App() {
         /* Hero */
         .hero-section { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 8rem 5% 4rem; text-align: center; position: relative; }
         .hero-kicker { font-size: 13px; font-weight: 800; letter-spacing: 0.25em; color: var(--brand-orange); text-transform: uppercase; margin-bottom: 1.5rem; }
-        .hero-title { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em; }
+        .hero-title { font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 800; line-height: 1.1; margin-bottom: 1.5rem; letter-spacing: -0.02em; color: #ffffff; }
         .hero-title span { background: linear-gradient(135deg, #F97316 0%, #fb923c 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .hero-subtitle { font-size: clamp(1.1rem, 2vw, 1.3rem); color: var(--text-muted); max-width: 750px; margin: 0 auto 3rem; line-height: 1.6; }
         
@@ -994,7 +985,7 @@ export default function App() {
             </ScrollReveal>
             <ScrollReveal delay={0.2} direction="up">
               <article className="problem-card">
-                <Users className="problem-icon" />
+                <TrendingUp className="problem-icon" />
                 <h3>{t.prob_2_title}</h3>
                 <p>{t.prob_2_desc}</p>
               </article>
